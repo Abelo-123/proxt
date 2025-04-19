@@ -41,7 +41,7 @@ function App() {
   // Load channels from local .m3u
   useEffect(() => {
     const loadChannels = async () => {
-      const res = await fetch("/channels.m3u");
+      const res = await fetch("https://abelo-123.github.io/proxt/channels.m3u");
       const text = await res.text();
       const parsedChannels = parseM3U(text);
       setChannels(parsedChannels);
