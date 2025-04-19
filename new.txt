@@ -1,0 +1,101 @@
+
+import React, { useEffect, useRef } from 'react';
+import Hls from 'hls.js';
+
+const IptvPlayer = () => {
+  const videoRef = useRef(null);
+  const containerRef = useRef(null);
+  const hlsRef = useRef(null);
+
+  const streamUrl =
+    'http://fl2.moveonjoy.com/ESPN_NEWS/index.m3u8';
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (Hls.isSupported()) {
+      const hls = new Hls({
+        capLevelToPlayerSize: true,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+        liveSyncDuration: 5,
+        levelLoadingMaxRetry: 3,
+        fragLoadingMaxRetry: 3,
+        enableWorker: true,
+      });
+
+      hlsRef.current = hls;
+
+      hls.attachMedia(video);
+      hls.loadSource(streamUrl);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        hls.currentLevel = -1; // auto quality
+        video.play();
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS.js error:', data);
+      });
+
+      return () => {
+        hls.destroy();
+      };
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamUrl;
+      video.addEventListener('loadedmetadata', () => {
+        video.play();
+      });
+    }
+  }, []);
+
+  const rewind10Seconds = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime = Math.max(video.currentTime - 10, 0);
+    }
+  };
+
+  const goToLive = () => {
+    const video = videoRef.current;
+    if (video && hlsRef.current) {
+      const bufferedEnd = video.buffered.length
+        ? video.buffered.end(video.buffered.length - 1)
+        : video.duration;
+      video.currentTime = bufferedEnd;
+    }
+  };
+
+  const toggleFullScreen = () => {
+    const container = containerRef.current;
+    if (!document.fullscreenElement) {
+      container?.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  return (
+    <div ref={containerRef} style={{ textAlign: 'center' }}>
+      <video
+        ref={videoRef}
+        controls
+        autoPlay
+        width="100%"
+        style={{ maxHeight: '90vh', background: 'black' }}
+      />
+      <div style={{ marginTop: '10px' }}>
+        <button onClick={rewind10Seconds} style={{ marginRight: '10px' }}>
+          ⏪ Back 10s
+        </button>
+        <button onClick={goToLive} style={{ marginRight: '10px' }}>
+          🔴 Go Live
+        </button>
+        <button onClick={toggleFullScreen}>⛶ Fullscreen</button>
+      </div>
+    </div>
+  );
+};
+
+export default IptvPlayer;
+
