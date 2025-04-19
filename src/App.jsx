@@ -110,7 +110,7 @@ function App() {
     <div style={{ display: 'flex', height: '100vh' }}>
       {/* Channel list */}
       <div style={{ width: '340px', overflowY: 'auto', borderRight: '1px solid #ccc', padding: '1rem' }}>
-        <h3>Channels</h3>
+        <h3>Chan</h3>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {channels.map((ch, idx) => (
             <li key={idx} style={{ marginBottom: '12px' }}>
