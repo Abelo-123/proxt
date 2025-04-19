@@ -107,10 +107,11 @@ function App() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
+    <div style={{ display: 'block', height: '100vh' }}>
       {/* Channel list */}
+<div style={{height:'20rem', overflow:'scroll'}}>
       <div style={{ width: '340px', overflowY: 'auto', borderRight: '1px solid #ccc', padding: '1rem' }}>
-        <h3>Ch</h3>
+        <h3>Channels</h3>
         <ul style={{ listStyle: 'none', padding: 0 }}>
           {channels.map((ch, idx) => (
             <li key={idx} style={{ marginBottom: '12px' }}>
@@ -131,8 +132,7 @@ function App() {
           ))}
         </ul>
       </div>
-
-      {/* Stream + EPG */}
+      </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '1rem' }}>
         {currentStream ? (
           <>
