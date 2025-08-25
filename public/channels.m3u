@@ -775,3 +775,5 @@ https://tvpass.org/live/ESPN/hd
 https://tvpass.org/live/mlb-29/sd
 #EXTINF:-1 tvg-id="" tvg-name="San Francisco Giants @ Los Angeles Angels (04/18 9:39 PM ET) HD" group-title="MLB",San Francisco Giants @ Los Angeles Angels (04/18 9:39 PM ET) HD
 https://tvpass.org/live/mlb-29/hd
+#EXTINF:-1 tvg-id="mbc3usa" tvg-name="MBC 3 USA",MBC 3 USA
+https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8
