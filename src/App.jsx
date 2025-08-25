@@ -50,17 +50,17 @@ function App() {
         {
           tvgId: "mbc3usa",
           name: "MBC 3 USA",
-          url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8"
+          url: `https://proxt-tv.onrender.com/proxy?url=${encodeURIComponent("https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8")}`
         },
         {
           tvgId: "spacetoon",
           name: "Spacetoon",
-          url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-spacetoon/d8382fb9ab4b2307058f12c7ea90db54/index.m3u8"
+          url: `https://proxt-tv.onrender.com/proxy?url=${encodeURIComponent("https://shd-gcp-live.edgenextcdn.net/live/bitmovin-spacetoon/d8382fb9ab4b2307058f12c7ea90db54/index.m3u8")}`
         },
         {
           tvgId: "mbcbollywood",
           name: "MBC Bollywood",
-          url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8"
+          url: `https://proxt-tv.onrender.com/proxy?url=${encodeURIComponent("https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8")}`
         }
       ];
 
