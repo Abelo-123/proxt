@@ -44,6 +44,33 @@ function App() {
       const res = await fetch("https://abelo-123.github.io/proxt/channels.m3u");
       const text = await res.text();
       const parsedChannels = parseM3U(text);
+
+      // Add hardcoded channels if not present
+      const extraChannels = [
+        {
+          tvgId: "mbc3usa",
+          name: "MBC 3 USA",
+          url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8"
+        },
+        {
+          tvgId: "spacetoon",
+          name: "Spacetoon",
+          url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-spacetoon/d8382fb9ab4b2307058f12c7ea90db54/index.m3u8"
+        },
+        {
+          tvgId: "mbcbollywood",
+          name: "MBC Bollywood",
+          url: "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8"
+        }
+      ];
+
+      extraChannels.forEach(extra => {
+        const alreadyExists = parsedChannels.some(ch => ch.tvgId === extra.tvgId || ch.url === extra.url);
+        if (!alreadyExists) {
+          parsedChannels.push(extra);
+        }
+      });
+
       setChannels(parsedChannels);
     };
     loadChannels();
@@ -102,7 +129,14 @@ function App() {
   };
 
   const handleChannelClick = (ch) => {
-    setCurrentStream(`https://proxt-tv.onrender.com/proxy?url=${encodeURIComponent(ch.url)}`);
+    // Try direct stream for Majid Children Channel first, fallback to proxy for others
+    if (
+      ["mbc3usa", "spacetoon", "mbcbollywood", "nationalgeographichd", "majidchildren"].includes(ch.tvgId)
+    ) {
+      setCurrentStream(ch.url);
+    } else {
+      setCurrentStream(`https://proxt-tv.onrender.com/proxy?url=${encodeURIComponent(ch.url)}`);
+    }
     setSelectedChannelId(ch.tvgId);
   };
 
@@ -180,6 +214,8 @@ function App() {
         )}
       </div>
     </div>
+ 
+
   );
 }
 
